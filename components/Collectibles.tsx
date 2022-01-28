@@ -16,44 +16,6 @@ import 'video-react/dist/video-react.css';
 import copy from 'fast-copy';
 
 
-const FETCH_STORE = gql`
-  query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
-    store(where: { id: { _eq: $storeId } }) {
-      id
-      name
-      symbol
-      baseUri
-      owner
-      minters {
-        account
-        enabled
-      }
-      things(limit: $limit, offset: $offset) {
-        id
-        memo
-        metaId
-        tokens_aggregate {
-          aggregate {
-            count
-          }
-        }
-        tokens(limit: 1, offset: 0) {
-          id
-          minter
-          royaltys {
-            account
-            percent
-          }
-          splits {
-            account
-            percent
-          }
-        }
-      }
-    }
-  }
-`
-
 const FETCH_OWN_TOKENS = gql`
 query FetchTokensByStoreId($ownerId: String!, $limit: Int, $offset: Int) {
   metadata(
@@ -133,17 +95,17 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens }: { baseUri: string; met
   )
 }
 
-type Store = {
-  id: string
-  name: string
-  symbol: string
-  baseUri: string
-  owner: string
-  minters: {
-    account: string
-    enabled: string
-  }[]
-}
+// type Store = {
+//   id: string
+//   name: string
+//   symbol: string
+//   baseUri: string
+//   owner: string
+//   minters: {
+//     account: string
+//     enabled: string
+//   }[]
+// }
 
 type Thing = {
   id: string
@@ -168,8 +130,8 @@ type Token = {
 const Collectibles = ({ ownerId }: { ownerId: string }) => {
   const { wallet, isConnected, details } = useWallet()
   //const { wallet } = useWallet()
-  const [store, setStore] = useState<Store | null>(null)
-  const [things1, setThings] = useState<any>([])
+  //const [store, setStore] = useState<Store | null>(null)
+  const [things1, setThings1] = useState<any>([])
 
   // const [getStore, { loading: loadingStoreData, data: storeData }] =
   //   useLazyQuery(FETCH_STORE, {
@@ -180,33 +142,34 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
   //     },
   //   })
 
-  const [getTokens, { loading: loadingTokensData, data: tokensData }] =
-    useLazyQuery(FETCH_OWN_TOKENS, {
+  const { loading: loadingTokensData, data: ownerData } =
+    useQuery(FETCH_OWN_TOKENS, {
+      fetchPolicy: "no-cache",
       variables: {
-        ownerId: '',
-        limit: 10,
+        ownerId: ownerId,
+        limit: 9,
         offset: 0,
       },
     })
 
 
-  useEffect(() => {
-    getTokens({
-      variables: {
-        ownerId: ownerId, //{wallet?.activeAccount?.accountId},//"mintingmusic1.testnet",
-        limit: 50,
-        offset: 0,
-      },
-    })
-  }, [])
+  // useEffect(() => {
+  //   getTokens({
+  //     variables: {
+  //       ownerId: ownerId, //{wallet?.activeAccount?.accountId},//"mintingmusic1.testnet",
+  //       limit: 50,
+  //       offset: 0,
+  //     },
+  //   })
+  // }, [])
 
   useEffect(() => {
     //if (!store || !tokensData) return
-    if (!tokensData) return
+    if (!ownerData) return
 
-    var things1 = tokensData.metadata.map((metadata: any) => metadata.thing)
-    const url = tokensData.metadata.map((metadata: any) => metadata.animation_url)
-    const anim_type = tokensData.metadata.map((metadata: any) => metadata.animation_type)
+    var things1 = ownerData.metadata.map((metadata: any) => metadata.thing)
+    const url = ownerData.metadata.map((metadata: any) => metadata.animation_url)
+    const anim_type = ownerData.metadata.map((metadata: any) => metadata.animation_type)
 
     things1 = copy(things1);
 
@@ -215,8 +178,8 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
       things1[i].anim_type = anim_type[i]
     }
 
-    setThings(things1)
-  }, [tokensData])
+    setThings1(things1)
+  }, [ownerData])
 
   return (
     <div className="w-full px-6 py-10 bg-gray-100 border-t">
@@ -229,7 +192,7 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
             <>
               <NFT
                 key={thing.metaId}
-                baseUri={store?.baseUri || 'https://arweave.net'}
+                baseUri={'https://arweave.net'}
                 metaId={thing.metaId}
                 url={thing.url}
                 anim_type={thing.anim_type}
