@@ -11,7 +11,7 @@ const Header = () => {
   let [navState, SetNavState] = useState(true)
   const hidden = () => {
     SetNavState(!navState)
-    let show = document.querySelector('.navMobile')
+    let show = document.querySelector('.navScreen')
     if (navState == true) {
       return show?.classList.remove('hidden')
     }
@@ -31,14 +31,14 @@ const Header = () => {
           <span className='md:hidden p-8 cursor-pointer' onClick={hidden}>
             {navState ? <MenuIcon className='text-white' /> : <CloseIcon className='text-white' />}
           </span>
-          <div className="navMobile hidden md:flex p-4 z-50 bg-[#383838] md:bg-transparent -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between">
+          <div className="navScreen navMobile hidden navMobile">
             {isConnected && (
-              <p className="text-lg py-4 px-8 font-semibold text-white">
+              <p className="text-lg py-2 px-8 font-semibold text-white">
                 {wallet?.activeAccount?.accountId}
               </p>
             )}
             <button
-              className="headerBtn"
+              className="headerBtn py-2"
               onClick={
                 isConnected
                   ? () => {

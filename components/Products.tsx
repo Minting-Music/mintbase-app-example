@@ -62,12 +62,13 @@ const Products = ({ storeId }: { storeId: string }) => {
 
   useEffect(() => {
     if (!tokensData) return;
+    
     setMetaData(tokensData.metadata)
   }, [tokensData])
 
   return (
     <>
-      {loadingTokensData && <Loader />}
+      {loadingTokensData && <div className='-mt-64'><Loader /></div>}
       <div className=" pb-24 w-full mx-auto bg-gray-100">
         <div className="grid sm:grid-cols-2 gap-0 md:grid-cols-3">
           {metaData.map((meta: ProductMeta) => (

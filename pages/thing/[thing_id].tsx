@@ -43,12 +43,16 @@ query MyQuery ($thing_id: String!) {
     }
   }`
 
-
+//   allTokens: tokens(distinct_on: id, where: {list: {removedAt: {_is_null: false}}}) {
+//     id
+// }
 
 const Product = ({ thing_id }: { thing_id: string }) => {
     const [things, setThing] = useState<Thing[]>([])
     const { wallet, isConnected } = useWallet();
     const [bid, setBid] = useState('0')
+    const [hide, setHide] = useState(false)
+
 
     const [getTokens, { loading: loadingTokensData, data: tokensData, fetchMore }] =
         useLazyQuery(FETCH_TOKEN, {
@@ -98,54 +102,66 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     else {
         currentBid = _nearApiJs.utils.format.formatNearAmount((Number(things[0]?.tokens[0].list.offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
     }
+    const play = () => {
+        setHide(!hide)           
+    }
 
     return (
         <>
             {loadingTokensData && <Loader />}
 
             {!loadingTokensData &&
-                <main className="h-screen py-24 bg-gray-100">
+                <main className="h-screen py-24 ">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
-                            <div className="w-full my-auto">
+                            <div className="w-full my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl bg-gray-50">
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
-                                        <img className=" object-contain mx-auto w-96"
+                                    <div className="py-2">
+                                        <img className=" object-contain mx-auto w-96 "
                                             src={things[0]?.metadata.media}
                                             alt={things[0]?.metadata.title} />
+                                    </div>
+                                        
                                     }
 
                                     {things[0]?.metadata.animation_type &&
-                                        <div id="responsiveVideoWrapper" className="">
+                                        <div id="responsiveVideoWrapper" className="my-28 mb-12 rounded-md">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
                                         </div>
+                                        
                                     }
-                                    <div className="divider divider-vertical"></div>
                                 </>
 
 
                             </div>
-                            <div className="priceTag w-full mb-12">
+                            <div className="priceTag w-full mb-24 md:mb-12 lg:mb-0">
 
-                                <div className='w-full'>
-                                    <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
-                                    <p className='text-gray-400 py-2'>Owned by: <span className='storeID'>{things[0]?.store.name}</span> </p>
-                                    <DescriptionIcon />
-                                    <span className='text-gray-700 text-[18px] pt-2 border-solid border-b-2 border-full border-gray-200'>Desciption</span>
-
-                                    <p className='pt-2 h-16 overflow-y-scroll'> <span className='storeID'>{things[0]?.metadata.description}</span> </p>
+                                <div className='xl:max-w-lg lg:max-w-md ' id='container'>
+                                    <div className='app-border mb-2'>
+                                        <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
+                                        <p className='text-gray-400 py-2'>Owned by: <span className='storeID'>{things[0]?.store.name}</span> </p>
+                                    </div>
+                                    <div className='app-border'>
+                                        <DescriptionIcon />
+                                        <span className='text-gray-700 text-[18px] pt-2 '>Description</span>
+                                            <p className={hide? 'pt-2 h-16 overflow-y-scroll ': 'pt-2 h-16 overflow-y-scroll truncate'}>
+                                                <span className='storeID'>{things[0]?.metadata.description}</span>
+                                            </p>
+                                        <span id='span' onClick={play} className='cursor-pointer text-blue-400'>{!hide ? 'see more' : 'see less'}</span>
+                                    </div>
                                 </div>
 
 
-                                <div className='text-gray-500 mt-2 text-sm'>
+                                <div className='text-gray-500 mt-2 text-sm app-border'>
                                     <p>Store ID: {things[0]?.storeId} </p>
 
                                     <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
 
                                     <p><a className='text-blue-400' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
 
-                                    <p>Tokens: {things[0]?.tokens.length} </p>
+                                    <p>Tokens: {things[0]?.tokens.length}</p>
 
                                     <p><a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
 
@@ -159,7 +175,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                                     <span className='px-2'>{price} </span>
                                                 </span>
                                             </div>
-                                            <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
+                                            <div className="flex items-center pt-2 app-border-solid  app-border-t-2 app-border-full app-border-gray-200">
                                                 <button className="fontFamily buyButton" onClick={buy}>
                                                     <AccountBalanceWalletIcon className='mr-4' />
                                                     Buy

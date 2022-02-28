@@ -37,6 +37,7 @@ export interface Thing {
     metadata
     : ThingMetadata;
     tokens: Token[];
+    allTokens: []
     __typename?: string;
 }
 

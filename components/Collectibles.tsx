@@ -95,9 +95,9 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
   }, [])
 
   useEffect(() => {
-    if (!tokensData) return
-    const metadata = tokensData.metadata.map((metadata: any) => metadata)
-    setMetaData(metadata)
+    if (!tokensData) return;
+    
+    setMetaData(tokensData.metadata)
   }, [tokensData])
 
   return (
@@ -114,6 +114,7 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
             {metaData.map((meta: MetaData) => (
               <>
                 <NFT
+                key={meta.id}
                   media={meta.media}
                   title={meta.title}
                   animation_url={meta.animation_url}
