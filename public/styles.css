@@ -41,7 +41,7 @@ font-family: mintingmusic;
   @apply fixed header-bg z-50 w-full top-0 sm:p-1
 }
 .storeID{
-  @apply text-gray-500
+  @apply text-gray-500 p-2
 }
 .app-border{
   @apply rounded-md p-2 border-dotted border-2 border-gray-300

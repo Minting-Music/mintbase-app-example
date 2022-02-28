@@ -112,10 +112,10 @@ const Product = ({ thing_id }: { thing_id: string }) => {
             {loadingTokensData && <Loader />}
 
             {!loadingTokensData &&
-                <main className="h-screen py-24 ">
+                <main className="h-screen py-24 lg:mt-8">
                     <div className="container mx-auto md:px-6">
-                        <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
-                            <div className="content-center my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl  bg-gray-50">
+                        <div className="lg:grid lg:grid-cols-3 h-full justify-center p-3 w-full">
+                            <div className="content-center my-auto rounded-md p-5 lg:col-span-2 border lg:mb-24 mx-4 shadow-2xl  bg-gray-50">
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -128,7 +128,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     }
 
                                     {things[0]?.metadata.animation_type &&
-                                        <div id="responsiveVideoWrapper" className="my-28 mb-12 rounded-md">
+                                        <div id="responsiveVideoWrapper" className="my-8 rounded-md">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
                                         </div>
                                         
@@ -150,26 +150,26 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             <p className={hide? 'pt-2 h-16 overflow-y-scroll ': 'pt-2 h-16 overflow-y-scroll truncate'}>
                                                 <span className='storeID'>{things[0]?.metadata.description}</span>
                                             </p>
-                                        <span id='span' onClick={play} className='cursor-pointer text-blue-400'>{!hide ? 'see more' : 'see less'}</span>
+                                        <span id='span' onClick={play} className='cursor-pointer text-blue-400 p-2'>{!hide ? 'see more' : 'see less'}</span>
                                     </div>
                                 </div>
 
 
                                 <div className='text-gray-500 mt-2 text-sm app-border'>
-                                    <p>Store ID: {things[0]?.storeId} </p>
+                                    <p className=' p-2'>Store ID: {things[0]?.storeId} </p>
 
-                                    <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
+                                    <p ><a className='text-blue-400 p-2' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
 
-                                    <p className='flex'>
-                                        <a className='text-blue-400 pr-1' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">
+                                    <p>
+                                        <a className='text-blue-400 p-2' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">
                                             Arweave Link
                                             <img src="../images/ARWEAVE.png" alt="here" className='w-5 h-4 text-black-300 pr-1 inline mx-2' />
                                         </a>
                                     </p>
 
-                                    <p>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
+                                    <p className=' p-2'>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
 
-                                    <p><a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
+                                    <p><a className='text-blue-400 p-2' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
 
 
                                     {isConnected && things[0]?.tokens[0].list.autotransfer &&

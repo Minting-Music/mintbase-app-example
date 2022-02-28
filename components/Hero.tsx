@@ -13,7 +13,7 @@ const Hero = () => {
           <h1 className="fontFamily text-gradient heroH1">
             {client.HeroTitle}
           </h1>
-          <p className="fontFamily heroP text-gradien">
+          <p className="fontFamily heroP">
             {client.HeroQuote}
           </p>
 
