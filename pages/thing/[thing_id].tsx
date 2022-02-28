@@ -170,7 +170,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     <p className=' p-2'>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
 
                                     <p><a className='text-blue-400 p-2' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
-                                    
+                                  {  things[0]?.tokens[0].list.autotransfer &&
+
                                     <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-4 '>
                                                 <span className='text-gray-500 mt-12 text-sm '>current price</span> <br />
                                                 <span className=" text-xl object-contain flex  m-5 justify-start  items-center">
@@ -178,6 +179,19 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                                     <span className='px-2'>{price} </span>
                                                 </span>
                                             </div>
+                                    }
+
+                                    { !things[0]?.tokens[0].list.autotransfer &&
+
+                                        <div className='flex max-w-md'>
+                                        <span className='text-gray-500 my-auto text-sm mx-5'>current Bid</span> <br />
+                                        <span className=" text-xl flex m-5 justify-start">
+                                            <img src="../images/near.png" alt="here" className='w-4 h-4 my-auto' />
+                                            <span className='px-2'>{currentBid} </span>
+                                        </span>
+                                        </div>
+
+                                    }
 
                                     {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                         <>
@@ -194,13 +208,6 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     {
                                         isConnected && !things[0]?.tokens[0].list.autotransfer &&
                                         <>
-                                            <div className='flex max-w-md'>
-                                                <span className='text-gray-500 my-auto text-sm mx-5'>current Bid</span> <br />
-                                                <span className=" text-xl flex m-5 justify-start">
-                                                    <img src="../images/near.png" alt="here" className='w-4 h-4 my-auto' />
-                                                    <span className='px-2'>{currentBid} </span>
-                                                </span>
-                                            </div>
                                             <div>
                                                 <input value={bid} type="number" onChange={e => setBid(e.target.value)} min="0" className=" ml-2 pl-4 rounded-full focus:outline-none border text-gray-700 py-2" />
                                             </div>
