@@ -1,0 +1,12 @@
+.big-player {
+    /* height: 37rem; */
+    object-fit: contain;
+    width: auto;
+}
+
+.small-player{
+    height: 15rem;
+    object-fit: contain;
+    margin: auto;
+    padding-top: 2px;
+}
