@@ -137,7 +137,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
 
                             </div>
-                            <div className="priceTag content-center mx-4 col-span-1 mb-4">
+                            <div className="priceTag content-center mx-4 col-span-1">
 
                                 <div className='' id='container'>
                                     <div className='app-border mb-2'>
@@ -217,7 +217,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                                     Bid</button>
                                             </div>
                                         </>
-                                      }
+                                    }
 
                                 </div>
                             </div>
