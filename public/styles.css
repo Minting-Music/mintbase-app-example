@@ -4,7 +4,7 @@
 
 @font-face {
 font-family: mintingmusic;
-  src: url(fonts/rebi.ttf);
+  src: url(fonts/futura.ttf);
 }
 .footerstyle{
   @apply w-full px-6 border-t  inset-x-0 bottom-0 footer-bg text-white uppercase
