@@ -104,7 +104,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
         currentBid = _nearApiJs.utils.format.formatNearAmount((Number(things[0]?.tokens[0].list.offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
     }
     const play = () => {
-        setHide(!hide)           
+        setHide(!hide)
     }
 
     return (
@@ -119,19 +119,19 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
-                                    <div className="py-2">
-                                        <img className=" object-contain mx-auto w-full my-auto"
-                                            src={things[0]?.metadata.media}
-                                            alt={things[0]?.metadata.title} />
-                                    </div>
-                                        
+                                        <div className="py-2">
+                                            <img className=" object-contain mx-auto w-full my-auto"
+                                                src={things[0]?.metadata.media}
+                                                alt={things[0]?.metadata.title} />
+                                        </div>
+
                                     }
 
                                     {things[0]?.metadata.animation_type &&
                                         <div id="responsiveVideoWrapper" className="rounded-md my-auto">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
                                         </div>
-                                        
+
                                     }
                                 </>
 
@@ -142,60 +142,53 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                 <div className='' id='container'>
                                     <div className='app-border mb-2'>
                                         <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
-                                        <p className='text-gray-400 py-2'>Owned by: <span className='storeID'>{things[0]?.store.name}</span> </p>
+                                        <p className='text-gray-400 py-2'>Owned by: <span className='storeID uppercase'>{things[0]?.store.name}</span> </p>
                                     </div>
                                     <div className='app-border'>
                                         <DescriptionIcon />
                                         <span className='text-gray-700 text-[18px] pt-2 '>Description</span>
-                                            <p className={hide? 'pt-2 h-24 overflow-y-scroll ': 'pt-2 h-16 overflow-y-scroll truncate'}>
-                                                <span className='storeID'>{things[0]?.metadata.description}</span>
-                                            </p>
+                                        <p className={hide ? 'pt-2 h-24 overflow-y-scroll ' : 'pt-2 h-16 overflow-y-scroll truncate'}>
+                                            <span className='storeID'>{things[0]?.metadata.description}</span>
+                                        </p>
                                         <span id='span' onClick={play} className='cursor-pointer text-blue-400 p-2'>{!hide ? 'see more' : 'see less'}</span>
                                     </div>
                                 </div>
 
 
                                 <div className='text-gray-500 mt-2 text-sm app-border'>
-                                    <p className=' p-2'>Store ID: {things[0]?.storeId} </p>
+                                    <p className=' p-2'>Store: {things[0]?.storeId} </p>
 
-                                    <p ><a className='text-blue-400 p-2' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
+                                    <p >
+                                        <a className='text-blue-400 p-2' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >
+                                            Near
+                                            <img src="../images/near.png" alt="here" className='w-4 h-3 text-black-300 pr-1 inline mx-2' />
+                                        </a>
+                                    </p>
 
                                     <p>
                                         <a className='text-blue-400 p-2' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">
-                                            Arweave Link
+
+                                            Arweave
                                             <img src="../images/ARWEAVE.png" alt="here" className='w-5 h-4 text-black-300 pr-1 inline mx-2' />
                                         </a>
                                     </p>
 
-                                    <p className=' p-2'>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
+                                    <p className=' p-2'>Tokens: {things[0]?.tokens.length}/{things[0]?.allTokens.length}</p>
 
                                     <p><a className='text-blue-400 p-2' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
-                                  {  things[0]?.tokens[0].list.autotransfer &&
 
-                                    <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-4 '>
-                                                <span className='text-gray-500 mt-12 text-sm '>current price</span> <br />
-                                                <span className=" text-xl object-contain flex  m-5 justify-start  items-center">
-                                                    <img src="../images/near.png" alt="here" className='w-4 h-4 ' />
-                                                    <span className='px-2'>{price} </span>
-                                                </span>
-                                            </div>
-                                    }
-
-                                    { !things[0]?.tokens[0].list.autotransfer &&
-
+                                    {things[0]?.tokens[0].list.autotransfer &&
                                         <div className='flex max-w-md'>
-                                        <span className='text-gray-500 my-auto text-sm mx-5'>current Bid</span> <br />
-                                        <span className=" text-xl flex m-5 justify-start">
-                                            <img src="../images/near.png" alt="here" className='w-4 h-4 my-auto' />
-                                            <span className='px-2'>{currentBid} </span>
-                                        </span>
+                                            <span className='text-gray-500 my-auto text-sm mx-2'>Price</span> <br />
+                                            <span className=" text-xl flex m-5 justify-start">
+                                                <span className='px-1'>{price}</span>
+                                                <img src="../images/near.png" alt="here" className='w-4 h-4 my-auto' />
+                                            </span>
                                         </div>
-
                                     }
-
                                     {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                         <>
-                                            
+
                                             <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
                                                 <button className="fontFamily buyButton" onClick={buy}>
                                                     <AccountBalanceWalletIcon className='mr-4' />
@@ -203,8 +196,16 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                                 </button>
                                             </div>
                                         </>
-                                            }
-
+                                    }
+                                    {!things[0]?.tokens[0].list.autotransfer &&
+                                        <div className='flex max-w-md'>
+                                            <span className='text-gray-500 my-auto text-sm mx-2'>Current Bid</span> <br />
+                                            <span className=" text-xl flex m-5 justify-start">
+                                                <span className='px-1'>{currentBid} </span>
+                                                <img src="../images/near.png" alt="here" className='w-4 h-4 my-auto' />
+                                            </span>
+                                        </div>
+                                    }
                                     {
                                         isConnected && !things[0]?.tokens[0].list.autotransfer &&
                                         <>
