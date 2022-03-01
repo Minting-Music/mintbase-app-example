@@ -112,7 +112,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
             {loadingTokensData && <Loader />}
 
             {!loadingTokensData &&
-                <main className="h-full pt-24 pb-12 mt-12">
+                <main className="h-full pt-12 md:pt-24 pb-12 mt-12">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:grid lg:grid-cols-2 justify-center w-full">
                             <div className="rounded-md lg:col-span-1 border mx-4 my-auto p-2 box-border shadow-2xl bg-gray-50">

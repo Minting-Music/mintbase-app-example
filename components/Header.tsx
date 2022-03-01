@@ -20,10 +20,10 @@ const Header = () => {
   const { wallet, isConnected } = useWallet()
   return (
     <header className="fontFamily fixedHeader relative">
-      <div className="flex container mx-auto max-w-8xl sm:flex sm:justify-between md:flex xl:px-5 lg:px-6 justify-between items-center ">
+      <div className="flex py-2 container mx-auto max-w-8xl sm:flex sm:justify-between md:flex xl:px-5 lg:px-6 justify-between items-center ">
         <Link href="/" passHref>
-          <a className="text-lg py-6  px-4 md:px-0 text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
-            <Image src={logo} alt="cover" />
+          <a className="text-lg py-2  px-4 md:px-0 text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
+            <Image height={50} className="object-contain" src={logo} alt="logo" />
           </a>
         </Link>
 
