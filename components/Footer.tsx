@@ -3,11 +3,11 @@ import client from '../public/data/client.json'
 const Footer = () => {
   return (
     <>
-      <footer className="footerstyle fontFamily fixed bottom-0">
-        <div className="container mx-auto max-w-8xl py-6 flex flex-wrap md:flex-no-wrap justify-between items-center text-sm">
-          &copy;{new Date().getFullYear()} {client.Title}. All rights
-          reserved.
-          <div className="pt-4 md:p-0 text-center md:text-right text-xs">
+      <footer className="footerstyle fontFamily">
+        <div className="container mx-auto max-w-8xl py-6 flex  flex-wrap md:flex-no-wrap justify-between items-center text-sm">
+          <div className="mx-auto md:mx-2">&copy;{new Date().getFullYear()} {client.Title}. All rights
+          reserved.</div>
+          <div className="pt-4 md:p-0 mx-auto md:mx-2 text-center md:text-right text-xs">
             <a href="#" className="footerLink">
               Privacy Policy
             </a>
