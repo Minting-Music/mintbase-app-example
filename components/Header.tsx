@@ -33,7 +33,7 @@ const Header = () => {
           </span>
           <div className="navScreen navMobile hidden">
             {isConnected && (
-              <p className="text-lg py-2 px-8 font-semibold text-white">
+              <p className="text-lg py-2 px-8 font-semibold text-black">
                 {wallet?.activeAccount?.accountId}
               </p>
             )}
