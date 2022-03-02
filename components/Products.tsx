@@ -67,9 +67,9 @@ const Products = ({ storeId }: { storeId: string }) => {
   }, [tokensData])
 
   return (
-    <>
+    <div className=' min-h-[30vh]'>
       {loadingTokensData && <div className='-mt-64'><Loader /></div>}
-      <div className=" pb-24 w-full mx-auto bg-gray-100">
+      <div className=" pb-12 w-full mx-auto bg-gray-50">
         <div className="grid sm:grid-cols-2 gap-0 md:grid-cols-3">
           {metaData.map((meta: ProductMeta) => (
             <NFT
@@ -84,7 +84,7 @@ const Products = ({ storeId }: { storeId: string }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
