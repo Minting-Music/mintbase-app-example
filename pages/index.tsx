@@ -8,7 +8,6 @@ import BasicTabs from '../components/BasicTabs'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 //import Access from '../components/access'
 import client from '../public/data/client.json'
-
 const Home = () => {
   //const { wallet, isConnected, details } = useWallet()
   return (
@@ -17,11 +16,8 @@ const Home = () => {
         <title>{client.Title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
       <Hero />
-      <BasicTabs/>
-      <h2 className="mb-3 text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-12"><a href="http://opensea.io/SevenDeadStars" target="_blank" rel="noreferrer">View the official <b>Seven Dead Stars</b> OpenSea Store</a></h2>
-      <Footer />
+      <BasicTabs />
     </>
   )
 }

@@ -1,26 +1,19 @@
-import Navbar from '../components/Navbar'
-
-import { useWallet } from '../services/providers/MintbaseWalletContext'
 import client from '../public/data/client.json'
-import Link from 'next/link'
-import Image from 'next/image'
-
 const Hero = () => {
-  const { wallet, isConnected, details } = useWallet()
   return (
     <>
       <div
-        className="w-full py-24 px-6 bg-cover bg-no-repeat bg-top relative z-10"
+        className="w-full py-24 px-6 bg-cover bg-no-repeat bg-top h-full  relative object-cover mt-16"
         style={{
           backgroundImage:
             "url('images/coverArt.jpg')",
         }}
       >
-        <div className="container max-w-4xl mx-auto text-center">
-          <h1 className="mmtext text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3">
+        <div className="container w-full text-center mx-auto my-auto">
+          <h1 className="fontFamily text-gradient hero-neon text-3xl">
             {client.HeroTitle}
           </h1>
-          <p className="mmtext text-md md:text-lg text-center text-white ">
+          <p className="fontFamily text-white py-3 text-2xl">
             {client.HeroQuote}
           </p>
 
@@ -30,4 +23,4 @@ const Hero = () => {
   )
 }
 
-export default Hero
+export default Hero;

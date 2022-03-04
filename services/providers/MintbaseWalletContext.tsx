@@ -1,41 +1,15 @@
 import { Chain, Network, Wallet } from 'mintbase'
 import {
   createContext,
-  ReactNode,
   useEffect,
   useState,
   useContext,
 } from 'react'
+import { IWalletConsumer, IWalletProvider, WalletDetails } from '../../interfaces/wallet.interface'
 
-interface IWalletProvider {
-  network?: Network
-  chain?: Chain
-  apiKey: string
-  children?: ReactNode
-}
-
-interface IWalletConsumer {
-  wallet: Wallet | undefined
-  isConnected: boolean
-  details: {
-    accountId: string
-    balance: string
-    allowance: string
-    contractName: string
-  }
-}
 
 // @ts-ignore
-export const WalletContext = createContext<{
-  wallet: Wallet | undefined
-  details: {
-    accountId: string
-    balance: string
-    allowance: string
-    contractName: string
-  }
-  isConnected: boolean
-}>({
+export const WalletContext = createContext<IWalletConsumer>({
   wallet: undefined,
   details: {
     accountId: '',
@@ -49,12 +23,7 @@ export const WalletContext = createContext<{
 export const WalletProvider = (props: IWalletProvider) => {
   const { network, chain, apiKey, children } = props
   const [wallet, setWallet] = useState<Wallet | undefined>()
-  const [details, setDetails] = useState<{
-    accountId: string
-    balance: string
-    allowance: string
-    contractName: string
-  }>({
+  const [details, setDetails] = useState<WalletDetails>({
     accountId: '',
     balance: '',
     allowance: '',

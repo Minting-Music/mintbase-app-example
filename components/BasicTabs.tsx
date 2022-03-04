@@ -45,7 +45,7 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
-  const { wallet, isConnected, details } = useWallet()
+  const { wallet, isConnected } = useWallet()
   return (
     <Box sx={{ width: '100%'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>

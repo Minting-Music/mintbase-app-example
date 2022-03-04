@@ -1,57 +1,12 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
-
 import { gql } from 'apollo-boost'
-
-import { useQuery, useLazyQuery } from '@apollo/client'
-
-import { MetadataField } from 'mintbase'
-
-import Image from 'next/image'
-import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
-
-import {Player, BigPlayButton} from 'video-react';
+import { useLazyQuery } from '@apollo/client'
+import React from 'react'
 import 'video-react/dist/video-react.css';
+import Player from './Player'
+import Loader from './Loader'
 
-
-const FETCH_STORE = gql`
-  query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
-    store(where: { id: { _eq: $storeId } }) {
-      id
-      name
-      symbol
-      baseUri
-      owner
-      minters {
-        account
-        enabled
-      }
-      things(limit: $limit, offset: $offset) {
-        id
-        memo
-        metaId
-        tokens_aggregate {
-          aggregate {
-            count
-          }
-        }
-        tokens(limit: 1, offset: 0) {
-          id
-          minter
-          royaltys {
-            account
-            percent
-          }
-          splits {
-            account
-            percent
-          }
-        }
-      }
-    }
-  }
-`
 
 const FETCH_TOKENS = gql`
 query FetchTokensByStoreId($ownerId: String!, $limit: Int, $offset: Int) {
@@ -76,135 +31,48 @@ query FetchTokensByStoreId($ownerId: String!, $limit: Int, $offset: Int) {
   }
 }
 `
-// const useAudio = (url: string) => {
-//   const audio = useRef<HTMLAudioElement | undefined>(
-//     typeof Audio !== "undefined" ? new Audio(url) : undefined
-//   );
-  
-  
-// const [playing, setPlaying] = useState(false);
 
-// const toggle = () => setPlaying(!playing);
-// //const toggle = setPlaying(!playing);
-
-// useLayoutEffect(() => {
-//     playing ? audio.current?.play() : audio.current?.pause();
-//   },
-//   [playing]
-// );
-
-// useEffect(() => {
-//   audio.current?.addEventListener('ended', () => setPlaying(false));
-//   return () => {
-//     audio.current?.removeEventListener('ended', () => setPlaying(false));
-//   };
-// }, []);
-
-// return [playing, toggle] as const;
-
-// };
-
-const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; metaId: string; url: string; anim_type: string, tokens: [Token]}) => {
-  const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
-
-  const fetchMetadata = async (url: string) => {
-    const response = await fetch(url)
-    const result = await response.json()
-    if (!result) return
-    setMetadata(result)
-  }
-  
-  const aw = url!=null ? url : "1";
-  const anim_url = aw.split("https://arweave.net/").pop();
-  const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
-  
-  useEffect(() => {
-    fetchMetadata(`${baseUri}/${metaId}`)
-  }, [])
-  if (!metadata) return null
+const NFT = ({ media, title, animation_url, animation_type }: { media: string; title: string; animation_url: string; animation_type: string }) => {
 
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
-     {/* <div className="h-80 lg:h-96"> */}
-     <div>
-        {!anim_type &&
-          <div className="h-80 lg:h-96 bg-gray-300 py-2 relative items-center min-h-full">        
-            <Image
-              //alt={metadata[MetadataField.Title]}
-              src={metadata[MetadataField.Media]}
-              //src={`https://coldcdn.com/api/cdn/bronil/${mediaHash}`}
-              layout="fill"
-              objectFit="contain"
-            />
+    <div className="mb-6 mx-auto cursor-pointer w-full p-4">
+      <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl px-2 shadow-lg h-full  pb-2">
+        <div>
+
+          {!animation_type &&
+            <img className="max-h-64 object-contain mx-auto"
+              src={media}
+              alt={title} />
+          }
+
+          {animation_type &&
+            <div className="max-h-64 mx-auto">
+              <Player src={animation_url} thumbnail={media} size={'small'}></Player>
+            </div>
+          }
+
+          <div className="px-30 py-2">
+            <div className="text-center font-bold text-lg">{title}</div>
           </div>
-        }
-        { anim_type &&
-        <div className="bg-gray-300 py relative items-center min-h-full">
-          <Player
-              playsInline={false}
-              aspectRatio="4:4"
-              poster={metadata[MetadataField.Media]}
-              src={url2}
-              className="items-center"
-          >
-            <BigPlayButton position="center" />
-          </Player>
-        </div> 
-        }
-        </div>
-        <div className="mt-1 lg:mt-3 px-1 bg-gray-300 items-center">
-          <p className="details">{metadata[MetadataField.Title]}</p>
         </div>
       </div>
+    </div>
   )
 }
 
-type Store = {
-  id: string
-  name: string
-  symbol: string
-  baseUri: string
-  owner: string
-  minters: {
-    account: string
-    enabled: string
-  }[]
-}
 
-type Thing = {
+type MetaData = {
   id: string
-  metaId: string
-  memo: string
-  url: string
-  anim_type: string
-  tokens: [Token]
-}
-
-type Token = {
-  id: string
-  list: {
-    price: string
-    autotransfer: boolean
-    offer: {
-      price: string
-    }
-  }
+  media: string
+  animation_url: string
+  title: string
+  animation_type: string
+  thing_id: string
 }
 
 const Collectibles = ({ ownerId }: { ownerId: string }) => {
-  const { wallet, isConnected, details } = useWallet()  
-  //const { wallet } = useWallet()
-  const [store, setStore] = useState<Store | null>(null)
-  const [things, setThings] = useState<any>([])
-
-  // const [getStore, { loading: loadingStoreData, data: storeData }] =
-  //   useLazyQuery(FETCH_STORE, {
-  //     variables: {
-  //       storeId: '',
-  //       limit: 10,
-  //       offset: 0,
-  //     },
-  //   })
+  const { wallet, isConnected, details } = useWallet()
+  const [metaData, setMetaData] = useState<any>([])
 
   const [getTokens, { loading: loadingTokensData, data: tokensData }] =
     useLazyQuery(FETCH_TOKENS, {
@@ -219,50 +87,46 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
   useEffect(() => {
     getTokens({
       variables: {
-        ownerId: ownerId, //{wallet?.activeAccount?.accountId},//"mintingmusic1.testnet",
+        ownerId: ownerId,
         limit: 50,
         offset: 0,
       },
     })
-  },[])
+  }, [])
 
   useEffect(() => {
-    //if (!store || !tokensData) return
-    if (!tokensData) return
-
-    const things = tokensData.metadata.map((metadata: any) => metadata.thing)
-    const url = tokensData.metadata.map((metadata: any) => metadata.animation_url)
-    const anim_type = tokensData.metadata.map((metadata: any) => metadata.animation_type)
-  
-    for (let i = 0; i < things.length; i++) {
-      things[i].url = url[i]
-      things[i].anim_type = anim_type[i]
-    }
-
-    setThings(things)
+    if (!tokensData) return;
+    
+    setMetaData(tokensData.metadata)
   }, [tokensData])
 
   return (
-    <div className="w-full px-6 py-10 bg-gray-100 border-t">
+    <div className="bg-fixed bg-gradient-to-r from-slate-50 to-slate-100 w-full px-6 py-10 bg-gray-100 border-t">
+
+      {loadingTokensData && <Loader/>}
+      {!loadingTokensData && (
         <>
-          <h1 className="text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
-            {wallet?.activeAccount?.accountId}, your tokens
-          </h1>
-          <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
-            {things.map((thing: Thing) => (
-              <>     
-              <NFT
-                key={thing.metaId}
-                baseUri={store?.baseUri || 'https://arweave.net'}
-                metaId={thing.metaId}
-                url={thing.url}
-                anim_type={thing.anim_type}
-                tokens={thing.tokens}
-              />
+        <h1 className="drop-shadow-lg text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
+          {wallet?.activeAccount?.accountId}, your tokens
+        </h1>
+        <div className="pb-24 w-full mx-auto bg-gray-100">
+          <div className="grid sm:grid-cols-2 gap-0 md:grid-cols-3">
+            {metaData.map((meta: MetaData) => (
+              <>
+                <NFT
+                key={meta.id}
+                  media={meta.media}
+                  title={meta.title}
+                  animation_url={meta.animation_url}
+                  animation_type={meta.animation_type}
+                />
               </>
             ))}
           </div>
-        </>
+        </div>
+      </>
+      )}
+      
     </div>
   )
 }
