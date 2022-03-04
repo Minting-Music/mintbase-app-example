@@ -108,7 +108,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     }
 
     return (
-        <>
+        <div className='min-h-screen'>
             {loadingTokensData && <Loader />}
 
             {!loadingTokensData &&
@@ -226,7 +226,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                     </div>
                 </main>
             }
-        </>
+        </div>
     )
 }
 
