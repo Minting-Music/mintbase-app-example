@@ -10,17 +10,17 @@ var _nearApiJs = require("near-api-js");
 
 const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: { thing_id: string; media: string; title: string; animation_url: string; animation_type: string, tokens: Token[] }) => {
 
-    const tokenPriceNumber = Number(tokens[0].list.price);
+    const tokenPriceNumber = Number(tokens[0].lists[0].price);
     // Number.toLocaleString() rounds after 16 decimal places, so be careful
     const price = _nearApiJs.utils.format.formatNearAmount((tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false }), 2);
   
   
     var currentBid
-    if (tokens[0].list.offer == null) {
+    if (tokens[0].lists[0].offer == null) {
       currentBid = '0'
     }
     else {
-      currentBid = _nearApiJs.utils.format.formatNearAmount((Number(tokens[0].list.offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
+      currentBid = _nearApiJs.utils.format.formatNearAmount((Number(tokens[0].lists[0].offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
     }
   
     // CDN the url, it will be faster
@@ -55,11 +55,11 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
               <div className="px-30 mt-4 pt-2 text-center justify-between my-auto">
                 <div className="font-black text-lg">{title}</div>
                 <>
-                  {tokens[0].list.autotransfer &&
+                  {tokens[0].lists[0].autotransfer &&
                     <div className="font-thin text-base my-2 flex items-center justify-center">{price}  <img src="../images/near.png" alt="here" className='w-4 mx-2'/> </div>
                   }
                   {/* Put a small auction symbol here */}
-                  {!tokens[0].list.autotransfer &&
+                  {!tokens[0].lists[0].autotransfer &&
                     <div className="font-thin text-base my-2 px-2 ">
                       <Tooltip title="BID">
                         <IconButton>
