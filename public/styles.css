@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,19 +8,19 @@ font-family: mintingmusic;
   src: url(fonts/rebi.ttf);
 }
 .footerstyle{
-  @apply w-full px-6 border-t  inset-x-0 bottom-0 footer-bg text-white uppercase
+  @apply w-full px-6 border-t  inset-x-0 bottom-0 bg-[#DF9F27] text-white uppercase
 }
 .footerLink{
   @apply text-white no-underline hover:underline ml-4
 }
 .fontFamily {
-  font-family: mintingmusic;
+  font-family: 'Lato', sans-serif ;
 }
 .buyButton{
-  @apply bg-[#383838] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#2c2c2c]
+  @apply bg-[#352A36] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#2c2c2c]
 }
 .headerBtn{
-  @apply bg-[#8bb995]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#84b18d]
+  @apply bg-[#352A36]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#84b18d]
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
@@ -38,7 +39,7 @@ font-family: mintingmusic;
   cursor: pointer;
 }
 .fixedHeader{
-  @apply fixed header-bg z-50 w-full top-0 sm:p-1
+  @apply fixed bg-[#ffffff] z-50 w-full top-0 sm:p-1
 }
 .storeID{
   @apply text-gray-500 p-2
@@ -52,29 +53,6 @@ backdrop-filter: blur(20px);
 -webkit-backdrop-filter: blur(5px);
 border: 1px solid rgba(255, 255, 255, 0.3);
 }
-.playbutton {
-  background-color: #2c2c2c;
-  font-family: mintingmusic;
-  border: none;
-  border-radius: 7px;
-  color: rgba(94, 94, 94, 0.863);
-  padding: 13px 32px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  display: inline-block;
-  width:100%;
-  font-size: 24px;
-  margin: 4px 2px;
-}
-
-.header-bg {
-  background-color:#383838;
-  background-image:
-    /* radial-gradient(at 0% 0%, rgb(56, 56, 56) 0, transparent 50%), */
-    radial-gradient(at 50% 100%, rgb(85, 85, 85) 0, transparent 50%);
-}
-
 .footer-bg {
   background-color:#383838;
   background-image:
