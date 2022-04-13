@@ -6,7 +6,7 @@ const Hero = () => {
         className="w-full py-24 px-6 bg-cover bg-no-repeat bg-center h-full relative z-10 object-contain mt-20 md:mt-24"
         style={{
           backgroundImage:
-            "url('images/coverArt.jpg')",
+            "url('images/cover.png')",
         }}
       >
         <div className="container max-w-4xl mx-auto my-auto">
