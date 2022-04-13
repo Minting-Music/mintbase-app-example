@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 import Image from 'next/image'
-import logo from '../public/images/logo.png'
+import logo from '../public/images/muti_logo.png'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
@@ -23,7 +23,7 @@ const Header = () => {
       <div className="flex container mx-auto max-w-8xl sm:flex sm:justify-between md:flex xl:px-5 lg:px-6 justify-between items-center ">
         <Link href="/" passHref>
           <a className="text-lg py-6  text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
-            <Image src={logo} alt="cover" />
+            <Image src={logo} alt="cover" height="40" width="70" objectFit='contain'/>
           </a>
         </Link>
 
@@ -33,7 +33,7 @@ const Header = () => {
           </span>
           <div className="navScreen navMobile hidden navMobile">
             {isConnected && (
-              <p className="text-lg py-2 px-8 font-semibold text-white">
+              <p className="text-lg py-2 px-8 font-normal text-[#444444]">
                 {wallet?.activeAccount?.accountId}
               </p>
             )}
