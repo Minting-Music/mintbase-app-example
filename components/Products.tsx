@@ -13,25 +13,27 @@ query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
   metadata(order_by: {thing: {createdAt: desc}}, where: {thing: 
     {storeId: {_eq: $storeId }, tokens: {list: {removedAt: {_is_null: true}}}}}, 
     limit: $limit, offset: $offset) {
-    id
-    media
-    animation_url
-    title
-    animation_type
-    thing {
       id
-      tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+      media
+      animation_url
+      title
+      animation_type
+      thing {
         id
-        list {
-          price
-          autotransfer
-          offer {
+        tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+          id
+          lists(order_by: {createdAt: desc}, limit: 1) {
+            id
             price
+            autotransfer
+            offer {
+              price
+            }
           }
         }
       }
     }
-    }
+  
 }`
 
 
@@ -63,13 +65,14 @@ const Products = ({ storeId }: { storeId: string }) => {
   useEffect(() => {
     if (!tokensData) return;
     
+    
     setMetaData(tokensData.metadata)
   }, [tokensData])
 
   return (
-    <>
+    <div className=' min-h-[30vh]'>
       {loadingTokensData && <div className='-mt-64'><Loader /></div>}
-      <div className=" pb-24 w-full mx-auto bg-gray-100">
+      <div className=" pb-12 w-full mx-auto bg-gray-50">
         <div className="grid sm:grid-cols-2 gap-0 md:grid-cols-3">
           {metaData.map((meta: ProductMeta) => (
             <NFT
@@ -84,7 +87,7 @@ const Products = ({ storeId }: { storeId: string }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
