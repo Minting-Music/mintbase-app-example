@@ -13,25 +13,27 @@ query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
   metadata(order_by: {thing: {createdAt: desc}}, where: {thing: 
     {storeId: {_eq: $storeId }, tokens: {list: {removedAt: {_is_null: true}}}}}, 
     limit: $limit, offset: $offset) {
-    id
-    media
-    animation_url
-    title
-    animation_type
-    thing {
       id
-      tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+      media
+      animation_url
+      title
+      animation_type
+      thing {
         id
-        list {
-          price
-          autotransfer
-          offer {
+        tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+          id
+          lists(order_by: {createdAt: desc}, limit: 1) {
+            id
             price
+            autotransfer
+            offer {
+              price
+            }
           }
         }
       }
     }
-    }
+  
 }`
 
 
@@ -62,6 +64,7 @@ const Products = ({ storeId }: { storeId: string }) => {
 
   useEffect(() => {
     if (!tokensData) return;
+    
     
     setMetaData(tokensData.metadata)
   }, [tokensData])
