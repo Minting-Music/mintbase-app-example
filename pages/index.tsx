@@ -14,7 +14,7 @@ const Home = () => {
     <>
       <Head>
         <title>{client.Title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/muti_logo.png" />
       </Head>
       <Hero />
       <BasicTabs />
