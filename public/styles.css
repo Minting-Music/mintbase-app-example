@@ -8,7 +8,7 @@ font-family: mintingmusic;
   src: url(fonts/rebi.ttf);
 }
 .footerstyle{
-  @apply w-full px-6 border-t  inset-x-0 bottom-0 bg-[#DF9F27] text-white uppercase
+  @apply w-full px-6 border-t  inset-x-0 bottom-0 bg-gray-600 text-white uppercase
 }
 .footerLink{
   @apply text-white no-underline hover:underline ml-4
