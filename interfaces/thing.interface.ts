@@ -25,7 +25,7 @@ interface List {
 
 export interface Token {
     id: string;
-    list: List;
+    lists: List[];
     txId?: string;
     __typename?: string;
 }
