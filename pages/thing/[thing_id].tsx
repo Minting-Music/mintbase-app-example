@@ -114,22 +114,25 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                 <main className="h-full py-24 mt-4">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:grid lg:grid-cols-2 justify-center w-full">
-                            <div className="rounded-md lg:col-span-1 border mx-4 my-auto p-2 box-border shadow-2xl bg-gray-50">
+                            <div className="rounded-md lg:col-span-1 border my-auto p-2 box-border shadow-2xl bg-gray-50 mx-auto">
 
                                 <>
-                                    {!things[0]?.metadata.animation_type &&
-                                        <div className="py-2">
-                                            <img className=" object-contain mx-auto w-full my-auto"
-                                                src={things[0]?.metadata.media}
-                                                alt={things[0]?.metadata.title} />
-                                        </div>
+                                    {/* {!things[0]?.metadata.animation_type &&
+                                        
 
-                                    }
+                                    } */}
 
-                                    {things[0]?.metadata.animation_type &&
-                                        <div id="responsiveVideoWrapper" className="rounded-md my-auto">
+                                    {(things[0]?.metadata.animation_type === 'video/mp4' || things[0]?.metadata.animation_type =='audio/mpeg') ?
+                                        (<div id="responsiveVideoWrapper" className="rounded-md my-auto">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
-                                        </div>
+                                        </div>):
+                                        (
+                                            <div className="py-2">
+                                                <img className=" object-contain mx-auto w-full my-auto"
+                                                    src={things[0]?.metadata.media}
+                                                    alt={things[0]?.metadata.title} />
+                                            </div>
+                                        )
 
                                     }
                                 </>
