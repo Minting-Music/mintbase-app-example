@@ -20,7 +20,7 @@ font-family: mintingmusic;
   @apply bg-[#352A36] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#2c2c2c]
 }
 .headerBtn{
-  @apply bg-[#352A36]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#84b18d]
+  @apply bg-[#352A36]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#484948]
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
