@@ -11,14 +11,14 @@ import client from '../public/data/client.json'
 const Home = () => {
   //const { wallet, isConnected, details } = useWallet()
   return (
-    <>
+    <div className='min-h-screen'>
       <Head>
         <title>{client.Title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/muti_logo.png" />
       </Head>
       <Hero />
       <BasicTabs />
-    </>
+    </div>
   )
 }
 
