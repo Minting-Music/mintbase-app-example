@@ -39,17 +39,21 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
           <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl px-2 shadow-lg h-full  pb-2">
             <div>
   
-              {!animation_type &&
-                <img className="max-h-64 object-contain mx-auto"
+              {/* {!animation_type &&
+              
+                
+              } */}
+  
+              {(animation_type === 'video/mp4' || animation_type =='audio/mpeg') ?
+                (<div className="max-h-64 mx-auto">
+                  <Player src={animation_url} thumbnail={media} size={'small'}></Player>
+                </div>) :
+                (
+                  <img className="max-h-64 object-contain mx-auto"
                   //src="https://coldcdn.com/api/cdn/bronil/HM9kQpGaqbzqugnArmkC0Dej5U5yKYT4RPvw6r1SELQ"//{media}
                   src={media}//"https://arweave.net/HM9kQpGaqbzqugnArmkC0Dej5U5yKYT4RPvw6r1SELQ"//{media}
                   alt={title} />
-              }
-  
-              {animation_type &&
-                <div className="max-h-64 mx-auto">
-                  <Player src={animation_url} thumbnail={media} size={'small'}></Player>
-                </div>
+                )
               }
   
               <div className="px-30 mt-4 pt-2 text-center justify-between my-auto">
