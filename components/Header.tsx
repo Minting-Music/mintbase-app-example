@@ -22,14 +22,14 @@ const Header = () => {
     <header className="fontFamily fixedHeader relative">
       <div className="flex container mx-auto max-w-8xl sm:flex sm:justify-between md:flex xl:px-5 lg:px-6 justify-between items-center ">
         <Link href="/" passHref>
-          <a className="text-lg py-6  text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
+          <a className="text-lg py-6  text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center ml-4">
             <Image src={logo} alt="cover" height="40" width="70" objectFit='contain'/>
           </a>
         </Link>
 
         <div className=" md:mb-0 text-center md:text-right  ">
           <span className='md:hidden p-8 cursor-pointer' onClick={hidden}>
-            {navState ? <MenuIcon className='text-white' /> : <CloseIcon className='text-white' />}
+            {navState ? <MenuIcon className='text-[#444444]' /> : <CloseIcon className='text-[#444444]' />}
           </span>
           <div className="navScreen navMobile hidden navMobile">
             {isConnected && (
