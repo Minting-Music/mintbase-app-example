@@ -17,7 +17,7 @@ query MyQuery ($thing_id: String!) {
       id
       tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
         id
-        list {
+        lists (order_by: {createdAt: desc}, limit: 1){
           price
           autotransfer
           offer {
@@ -69,7 +69,6 @@ const Product = ({ thing_id }: { thing_id: string }) => {
             },
         })
     }, [])
-
     useEffect(() => {
         if (!tokensData) return;
         setThing(tokensData.thing)
@@ -78,7 +77,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     var tokenPriceNumber
     var price, tokenPrice: string
     things.map((thing: Thing) => {
-        tokenPriceNumber = Number(thing.tokens[0].list.price)
+        tokenPriceNumber = Number(thing.tokens[0].lists[0].price)
         //format keep on giving error without the map implementation, why?
         price = _nearApiJs.utils.format.formatNearAmount((tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false }), 2)
         tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false })
@@ -89,7 +88,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     // const tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false })
 
     var buy = () => {
-        if (things[0]?.tokens[0].list.autotransfer) {
+        if (things[0]?.tokens[0].lists[0].autotransfer) {
             wallet?.makeOffer(things[0]?.tokens[0].id, tokenPrice, { marketAddress: process.env.marketAddress })
         }
         else {
@@ -97,11 +96,11 @@ const Product = ({ thing_id }: { thing_id: string }) => {
         }
     }
     var currentBid;
-    if (things[0]?.tokens[0].list.offer == null) {
+    if (things[0]?.tokens[0].lists[0].offer == null) {
         currentBid = '0'
     }
     else {
-        currentBid = _nearApiJs.utils.format.formatNearAmount((Number(things[0]?.tokens[0].list.offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
+        currentBid = _nearApiJs.utils.format.formatNearAmount((Number(things[0]?.tokens[0].lists[0].offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
     }
     const play = () => {
         setHide(!hide)
@@ -177,7 +176,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
                                     <p><a className='text-blue-400 p-2' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
 
-                                    {things[0]?.tokens[0].list.autotransfer &&
+                                    {things[0]?.tokens[0].lists[0].autotransfer &&
                                         <div className='flex max-w-md'>
                                             <span className='text-gray-500 my-auto text-sm mx-2'>Price</span> <br />
                                             <span className=" text-xl flex m-5 justify-start">
@@ -186,7 +185,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             </span>
                                         </div>
                                     }
-                                    {isConnected && things[0]?.tokens[0].list.autotransfer &&
+                                    {isConnected && things[0]?.tokens[0].lists[0].autotransfer &&
                                         <>
 
                                             <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
@@ -197,7 +196,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             </div>
                                         </>
                                     }
-                                    {!things[0]?.tokens[0].list.autotransfer &&
+                                    {!things[0]?.tokens[0].lists[0].autotransfer &&
                                         <div className='flex max-w-md'>
                                             <span className='text-gray-500 my-auto text-sm mx-2'>Current Bid</span> <br />
                                             <span className=" text-xl flex m-5 justify-start">
@@ -207,7 +206,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                         </div>
                                     }
                                     {
-                                        isConnected && !things[0]?.tokens[0].list.autotransfer &&
+                                        isConnected && !things[0]?.tokens[0].lists[0].autotransfer &&
                                         <>
                                             <div>
                                                 <input value={bid} type="number" onChange={e => setBid(e.target.value)} min="0" className=" ml-2 pl-4 rounded-full focus:outline-none border text-gray-700 py-2" />
