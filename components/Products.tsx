@@ -3,8 +3,10 @@ import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import React from 'react'
 import { ProductMeta } from '../interfaces/thing.interface';
-import NFT from './NFT'
-import Loader from './Loader';
+import dynamic from 'next/dynamic';
+
+const NFT= dynamic(()=> import("./NFT"));
+const Loader= dynamic(()=> import("./Loader"));
 
 
 
@@ -64,9 +66,8 @@ const Products = ({ storeId }: { storeId: string }) => {
 
   useEffect(() => {
     if (!tokensData) return;
-    
-    
     setMetaData(tokensData.metadata)
+    
   }, [tokensData])
 
   return (

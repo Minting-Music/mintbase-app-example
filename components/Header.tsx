@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 import Image from 'next/image'
 import logo from '../public/images/logo.png'
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import MenuIcon from '@material-ui/icons/Menu';
-import CloseIcon from '@material-ui/icons/Close';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 
 const Header = () => {

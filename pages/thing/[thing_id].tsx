@@ -2,13 +2,15 @@ import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
 import { useWallet } from '../../services/providers/MintbaseWalletContext';
-// import { Player, BigPlayButton } from 'video-react';
 import { Thing } from '../../interfaces/thing.interface';
-import Player from '../../components/Player';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import dynamic from 'next/dynamic';
+
+const Player = dynamic(()=> import('../../components/Player'))
+
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Loader from '../../components/Loader';
-import Gavel from '@material-ui/icons/Gavel';
-import DescriptionIcon from '@material-ui/icons/Description';
+import Gavel from '@mui/icons-material/Gavel';
+import DescriptionIcon from '@mui/icons-material/Description';
 var _nearApiJs = require("near-api-js");
 
 const FETCH_TOKEN = gql`

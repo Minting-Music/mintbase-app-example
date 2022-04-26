@@ -3,9 +3,10 @@ import { useWallet } from '../services/providers/MintbaseWalletContext'
 import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import React from 'react'
-import 'video-react/dist/video-react.css';
-import Player from './Player'
-import Loader from './Loader'
+import dynamic from 'next/dynamic';
+
+const Player= dynamic(()=> import("./Player"));
+const Loader= dynamic(()=> import("./Loader"));
 
 
 const FETCH_TOKENS = gql`

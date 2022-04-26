@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
-import 'video-react/dist/video-react.css';
 import { Token } from '../interfaces/thing.interface';
-import Player from './Player'
-import Gavel from '@material-ui/icons/Gavel';
+import dynamic from 'next/dynamic';
+
+const Player= dynamic(()=> import("./Player"));
+
+import Gavel from '@mui/icons-material/Gavel';
 import { IconButton, Tooltip } from '@material-ui/core';
 
 var _nearApiJs = require("near-api-js");

@@ -1,9 +1,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import {Tabs, Tab, Box, Typography } from '@material-ui/core';
-import Products from '../components/Products'
+import dynamic from 'next/dynamic';
+
+const Products= dynamic(()=> import("./Products"));
+const Collectibles= dynamic(()=> import("./Collectibles"));
+
 import { useWallet } from '../services/providers/MintbaseWalletContext'
-import Collectibles from '../components/Collectibles'
 
 function TabPanel(props: { [x: string]: any; children: any; value: any; index: any; }) {
   const { children, value, index, ...other } = props;
