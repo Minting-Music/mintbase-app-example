@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 import Image from 'next/image'
-import logo from '../public/images/muti_logo.png'
+import logo from '../public/images/muti_bazaar.png'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
