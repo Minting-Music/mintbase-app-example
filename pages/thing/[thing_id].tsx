@@ -11,6 +11,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Loader from '../../components/Loader';
 import Gavel from '@mui/icons-material/Gavel';
 import DescriptionIcon from '@mui/icons-material/Description';
+import NearPay from '../../components/nearPay';
 var _nearApiJs = require("near-api-js");
 
 const FETCH_TOKEN = gql`
@@ -136,7 +137,6 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     }
                                 </>
 
-
                             </div>
                             <div className="priceTag content-center mx-4 col-span-1">
 
@@ -187,6 +187,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             </span>
                                         </div>
                                     }
+
+                                        <NearPay/>  
                                     {isConnected && things[0]?.tokens[0].lists[0].autotransfer &&
                                         <>
 
@@ -207,6 +209,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             </span>
                                         </div>
                                     }
+                                    
                                     {
                                         isConnected && !things[0]?.tokens[0].lists[0].autotransfer &&
                                         <>
@@ -219,7 +222,9 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                                     Bid</button>
                                             </div>
                                         </>
+                                        
                                     }
+                                    
 
                                 </div>
                             </div>
