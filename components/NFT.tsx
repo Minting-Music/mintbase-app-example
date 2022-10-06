@@ -15,6 +15,8 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
     const tokenPriceNumber = Number(tokens[0].lists[0].price);
     // Number.toLocaleString() rounds after 16 decimal places, so be careful
     const price = _nearApiJs.utils.format.formatNearAmount((tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false }), 2);
+    console.log(tokens[0].lists[0], 'plppolpk');
+    
   
   
     var currentBid

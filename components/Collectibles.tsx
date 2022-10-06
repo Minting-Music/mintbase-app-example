@@ -12,7 +12,7 @@ const Loader= dynamic(()=> import("./Loader"));
 const FETCH_TOKENS = gql`
 query FetchTokensByStoreId($ownerId: String!, $limit: Int, $offset: Int) {
   metadata(
-    order_by: { thing_id: asc } 
+    order_by: { thing_id: asc }
     where: {thing: {tokens: {ownerId: {_eq: $ownerId}}}}
     limit: $limit
     offset: $offset
@@ -97,7 +97,7 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
 
   useEffect(() => {
     if (!tokensData) return;
-    
+
     setMetaData(tokensData.metadata)
   }, [tokensData])
 
