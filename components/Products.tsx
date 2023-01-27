@@ -12,9 +12,11 @@ const Loader= dynamic(()=> import("./Loader"));
 
 const FETCH_TOKENS = gql`
 query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
-  metadata(order_by: {thing: {createdAt: desc}}, where: {thing: 
-    {storeId: {_eq: $storeId }, tokens: {list: {removedAt: {_is_null: true}}}}}, 
-    limit: $limit, offset: $offset) {
+  metadata(order_by: {thing: {createdAt: desc}},
+     where: {
+       thing: {storeId: {_eq: $storeId }, 
+       tokens: {list: {removedAt: {_is_null: true}}}}}, 
+      limit: $limit, offset: $offset) {
       id
       media
       animation_url
